@@ -1,0 +1,48 @@
+{
+  "phoneNumber": "+17277773204",
+  "valid": true,
+  "nationalFormat": "(727) 777-3204",
+  "countryCode": "US",
+  "lineType": "mobile",
+  "carrier": "T-Mobile USA",
+  "callerName": "John Smith",
+  "isReassigned": false,
+  "line_status": {
+    "status": "active",
+    "ipqs_active": true,
+    "ipqs_valid": true,
+    "ipqs_fraud_score": 12,
+    "ipqs_recent_abuse": false,
+    "ipqs_VOIP": false,
+    "ipqs_risky": false
+  },
+  "ipqs_data": {
+    "valid": true,
+    "active": true,
+    "fraud_score": 12,
+    "recent_abuse": false,
+    "VOIP": false,
+    "risky": false,
+    "leaked": false,
+    "spammer": false,
+    "prepaid": false,
+    "do_not_call": false,
+    "name": "John Smith",
+    "city": "Tampa",
+    "region": "FL",
+    "zip_code": "33602",
+    "timezone": "America/New_York",
+    "carrier": "T-Mobile"
+  },
+  "recommendation": {
+    "action": "Good to Contact",
+    "priority": 8,
+    "reason": "Valid, active mobile number with low fraud risk and no legal restrictions"
+  },
+  "warnings": [],
+  "metadata": {
+    "timestamp": "2025-01-27T10:30:00Z",
+    "api_version": "1.0",
+    "lookup_duration_ms": 2847
+  }
+}

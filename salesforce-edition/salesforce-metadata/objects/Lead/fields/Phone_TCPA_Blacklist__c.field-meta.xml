@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Phone_TCPA_Blacklist__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>⚠️ CRITICAL: Is number on TCPA litigation blacklist?</description>
+    <externalId>false</externalId>
+    <inlineHelpText>⚠️ DO NOT CALL if checked. High risk of lawsuit</inlineHelpText>
+    <label>Phone TCPA Blacklist</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Checkbox</type>
+</CustomField>

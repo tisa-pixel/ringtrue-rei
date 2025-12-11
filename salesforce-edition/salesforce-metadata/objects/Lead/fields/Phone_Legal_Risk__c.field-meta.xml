@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Phone_Legal_Risk__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>⚠️ Does this number have ANY legal compliance issues? (DNC or TCPA)</description>
+    <externalId>false</externalId>
+    <inlineHelpText>⚠️ Review DNC Status and TCPA Blacklist before calling</inlineHelpText>
+    <label>Phone Legal Risk</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Checkbox</type>
+</CustomField>

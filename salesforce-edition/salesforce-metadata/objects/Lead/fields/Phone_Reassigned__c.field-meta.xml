@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Phone_Reassigned__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>Was this number recently reassigned to a new owner?</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Calling reassigned numbers can violate TCPA</inlineHelpText>
+    <label>Phone Reassigned</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Checkbox</type>
+</CustomField>

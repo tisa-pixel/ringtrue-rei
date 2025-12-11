@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Phone_DNC_Status__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>⚠️ CRITICAL: Is number on Do Not Call Registry? ($500-$1500 fine per violation)</description>
+    <externalId>false</externalId>
+    <inlineHelpText>⚠️ DO NOT CALL if checked. Legal violation: $500-$1500 per call</inlineHelpText>
+    <label>Phone DNC Status</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Checkbox</type>
+</CustomField>

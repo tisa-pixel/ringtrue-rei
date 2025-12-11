@@ -1,0 +1,12 @@
+{
+  "packageDirectories": [
+    {
+      "path": ".",
+      "default": true
+    }
+  ],
+  "name": "ringtrue-sf-edition",
+  "namespace": "",
+  "sfdcLoginUrl": "https://login.salesforce.com",
+  "sourceApiVersion": "60.0"
+}

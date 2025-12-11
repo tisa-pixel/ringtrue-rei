@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RingTrue - App Edition | Phone Number Validator</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            padding: 40px;
+            max-width: 600px;
+            width: 100%;
+        }
+        
+        h1 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 28px;
+        }
+        
+        .subtitle {
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 14px;
+        }
+        
+        .setup-section {
+            background: #f8f9fa;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .setup-section h2 {
+            font-size: 18px;
+            color: #495057;
+            margin-bottom: 15px;
+        }
+        
+        .setup-section p {
+            color: #6c757d;
+            font-size: 14px;
+            line-height: 1.6;
+            margin-bottom: 10px;
+        }
+        
+        .setup-section a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        .setup-section a:hover {
+            text-decoration: underline;
+        }
+        
+        .input-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: 500;
+            font-size: 14px;
+        }
+        
+        input[type="text"],
+        input[type="password"] {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #e1e8ed;
+            border-radius: 8px;
+            font-size: 15px;
+            transition: border-color 0.3s;
+        }
+        
+        input[type="text"]:focus,
+        input[type="password"]:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        
+        .btn {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.4);
+        }
+        
+        .btn:active {
+            transform: translateY(0);
+        }
+        
+        .btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .results {
+            margin-top: 30px;
+            padding: 20px;
+            border-radius: 10px;
+            display: none;
+        }
+        
+        .results.success {
+            background: #d4edda;
+            border: 2px solid #c3e6cb;
+            display: block;
+        }
+        
+        .results.error {
+            background: #f8d7da;
+            border: 2px solid #f5c6cb;
+            display: block;
+        }
+        
+        .results h3 {
+            margin-bottom: 15px;
+            color: #333;
+            font-size: 18px;
+        }
+        
+        .result-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        }
+        
+        .result-item:last-child {
+            border-bottom: none;
+        }
+        
+        .result-label {
+            font-weight: 600;
+            color: #495057;
+        }
+        
+        .result-value {
+            color: #212529;
+            text-align: right;
+        }
+        
+        .badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+        
+        .badge.mobile {
+            background: #d4edda;
+            color: #155724;
+        }
+        
+        .badge.landline {
+            background: #cce5ff;
+            color: #004085;
+        }
+        
+        .badge.voip {
+            background: #fff3cd;
+            color: #856404;
+        }
+        
+        .badge.valid {
+            background: #d4edda;
+            color: #155724;
+        }
+        
+        .badge.invalid {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        .badge.active {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .badge.inactive {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        .badge.warning {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .alert-box {
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .alert-box.danger {
+            background: #f8d7da;
+            border: 2px solid #f5c6cb;
+            color: #721c24;
+        }
+
+        .alert-box.warning {
+            background: #fff3cd;
+            border: 2px solid #ffeeba;
+            color: #856404;
+        }
+
+        .alert-box.success {
+            background: #d4edda;
+            border: 2px solid #c3e6cb;
+            color: #155724;
+        }
+
+        .loading {
+            display: none;
+            text-align: center;
+            margin-top: 20px;
+        }
+        
+        .loading.active {
+            display: block;
+        }
+        
+        .spinner {
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #667eea;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .note {
+            background: #fff3cd;
+            border: 1px solid #ffeeba;
+            border-radius: 8px;
+            padding: 12px;
+            margin-top: 15px;
+            font-size: 13px;
+            color: #856404;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📞 RingTrue - App Edition</h1>
+        <p class="subtitle">Know before you call - validate phone numbers, check legal compliance, and assess lead quality</p>
+        
+        <form id="lookupForm">
+            <div class="input-group">
+                <label for="phoneNumber">Phone Number to Lookup</label>
+                <input
+                    type="text"
+                    id="phoneNumber"
+                    placeholder="(555) 555-5555"
+                    required
+                >
+                <div id="errorMessage" style="display: none; margin-top: 10px; padding: 12px; background: #f8d7da; border: 1px solid #f5c6cb; border-radius: 8px; color: #721c24; font-size: 14px;">
+                </div>
+            </div>
+
+            <button type="submit" class="btn">🔍 Lookup Phone Number</button>
+        </form>
+
+        <div class="loading" id="loading">
+            <div class="spinner"></div>
+            <p style="margin-top: 10px; color: #666;">Looking up phone number...</p>
+        </div>
+
+        <div class="results" id="results"></div>
+        
+        <div class="note">
+            <strong>Secure:</strong> This app uses Netlify serverless functions to securely call the Twilio API. Your credentials are stored safely as environment variables on the server and never exposed in the browser.
+        </div>
+    </div>
+
+    <script>
+        const form = document.getElementById('lookupForm');
+        const loading = document.getElementById('loading');
+        const results = document.getElementById('results');
+        const errorMessage = document.getElementById('errorMessage');
+        const phoneInput = document.getElementById('phoneNumber');
+
+        // Real-time phone number formatting as user types
+        phoneInput.addEventListener('input', (e) => {
+            let value = e.target.value.replace(/\D/g, ''); // Remove all non-digits
+            let formatted = '';
+
+            if (value.length > 0) {
+                // Format as (XXX) XXX-XXXX
+                if (value.length <= 3) {
+                    formatted = value;
+                } else if (value.length <= 6) {
+                    formatted = `(${value.slice(0, 3)}) ${value.slice(3)}`;
+                } else if (value.length <= 10) {
+                    formatted = `(${value.slice(0, 3)}) ${value.slice(3, 6)}-${value.slice(6)}`;
+                } else {
+                    // Limit to 10 digits for display
+                    formatted = `(${value.slice(0, 3)}) ${value.slice(3, 6)}-${value.slice(6, 10)}`;
+                }
+            }
+
+            e.target.value = formatted;
+        });
+
+        function showError(message) {
+            errorMessage.textContent = message;
+            errorMessage.style.display = 'block';
+            loading.classList.remove('active');
+        }
+
+        function hideError() {
+            errorMessage.style.display = 'none';
+        }
+
+        function validateAndFormatPhoneNumber(input) {
+            // Remove all non-digit characters
+            const digitsOnly = input.replace(/\D/g, '');
+
+            // Check if we have enough digits (at least 10 for US number)
+            if (digitsOnly.length < 10) {
+                return { valid: false, error: 'Phone number must have at least 10 digits. Please enter a valid phone number and try again.' };
+            }
+
+            // Check if it's too long
+            if (digitsOnly.length > 15) {
+                return { valid: false, error: 'Phone number is too long. Please enter a valid phone number and try again.' };
+            }
+
+            // If it starts with 1 and has 11 digits, it's a US number with country code
+            // Otherwise, assume US and prepend +1
+            let formattedNumber;
+            if (digitsOnly.length === 11 && digitsOnly.startsWith('1')) {
+                formattedNumber = '+' + digitsOnly;
+            } else if (digitsOnly.length === 10) {
+                formattedNumber = '+1' + digitsOnly;
+            } else if (digitsOnly.startsWith('+')) {
+                // Already has + prefix
+                formattedNumber = input.replace(/[^\d+]/g, '');
+            } else {
+                // Assume it's an international number
+                formattedNumber = '+' + digitsOnly;
+            }
+
+            return { valid: true, number: formattedNumber };
+        }
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            hideError();
+
+            const input = document.getElementById('phoneNumber').value.trim();
+
+            // Validate and format the phone number
+            const validation = validateAndFormatPhoneNumber(input);
+
+            if (!validation.valid) {
+                showError(validation.error);
+                return;
+            }
+
+            const phoneNumber = validation.number;
+
+            console.log('Starting lookup for:', phoneNumber);
+
+            // Show loading
+            loading.classList.add('active');
+            results.style.display = 'none';
+            results.className = 'results';
+
+            try {
+                console.log('Calling Netlify function...');
+                // Call Netlify serverless function
+                const response = await fetch('/.netlify/functions/lookup', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        phoneNumber: phoneNumber
+                    })
+                });
+
+                console.log('Response status:', response.status);
+                loading.classList.remove('active');
+
+                if (!response.ok) {
+                    const errorData = await response.json().catch(() => ({ error: 'Unknown error' }));
+                    console.error('Error response:', errorData);
+                    throw new Error(errorData.error || `API Error: ${response.status}`);
+                }
+
+                const data = await response.json();
+                console.log('Success! Data received:', data);
+                displayResults(data, true);
+
+            } catch (error) {
+                console.error('Caught error:', error);
+                loading.classList.remove('active');
+                displayResults({ error: error.message || 'Unknown error occurred' }, false);
+            }
+        });
+        
+        function displayResults(data, success) {
+            console.log('displayResults called with success:', success, 'data:', data);
+            results.className = 'results ' + (success ? 'success' : 'error');
+            results.style.display = 'block';
+
+            if (!success) {
+                results.innerHTML = `
+                    <h3>❌ Error</h3>
+                    <p style="color: #721c24;">${data.error}</p>
+                    <p style="margin-top: 10px; font-size: 13px; color: #721c24;">
+                        Make sure your credentials are correct and the phone number includes country code (e.g., +1 for US).
+                    </p>
+                `;
+                return;
+            }
+            
+            // Extract all data fields
+            const isValid = data.valid !== false;
+            const lineType = data.line_type_intelligence?.type || 'Unknown';
+            const carrier = data.line_type_intelligence?.carrier_name || 'Unknown';
+            const mobileCountryCode = data.line_type_intelligence?.mobile_country_code || 'N/A';
+            const mobileNetworkCode = data.line_type_intelligence?.mobile_network_code || 'N/A';
+            const callerName = data.caller_name?.caller_name || 'Not available';
+
+            // IPQS data (line status from free tier!)
+            const ipqsActive = data.line_status?.ipqs_active;
+            const ipqsValid = data.line_status?.ipqs_valid;
+            const fraudScore = data.line_status?.ipqs_fraud_score || 0;
+            const isRisky = data.line_status?.ipqs_risky;
+            const recentAbuse = data.line_status?.ipqs_recent_abuse;
+            const isVOIP = data.line_status?.ipqs_VOIP;
+
+            // Legal compliance fields (CRITICAL!)
+            const doNotCall = data.ipqs_data?.do_not_call || false;
+            const tcpaBlacklist = data.ipqs_data?.tcpa_blacklist || false;
+
+            // Lead quality indicators
+            const isSpammer = data.ipqs_data?.spammer || false;
+            const isPrepaid = data.ipqs_data?.prepaid || false;
+            const isLeaked = data.ipqs_data?.leaked || false;
+
+            // Identity & location data
+            const ownerName = data.ipqs_data?.name || 'Not available';
+            const city = data.ipqs_data?.city || 'Unknown';
+            const region = data.ipqs_data?.region || 'Unknown';
+            const timezone = data.ipqs_data?.timezone || 'Unknown';
+            const zipCode = data.ipqs_data?.zip_code || 'N/A';
+
+            // Premium Twilio features
+            const lineStatus = ipqsActive ? 'active' : 'inactive';
+            const isReassigned = data.reassigned_number?.is_reassigned;
+            const reassignedDate = data.reassigned_number?.last_reassigned_date || 'N/A';
+
+            // Determine badges
+            let lineTypeBadge = 'warning'; // VoIP default
+            if (lineType.toLowerCase() === 'mobile') lineTypeBadge = 'mobile';
+            if (lineType.toLowerCase() === 'landline') lineTypeBadge = 'warning';
+
+            let statusBadge = 'active';
+            if (lineStatus.toLowerCase() === 'inactive') statusBadge = 'inactive';
+            if (lineStatus.toLowerCase() === 'suspended') statusBadge = 'warning';
+
+            // Build recommendation
+            let recommendationBox = '';
+            let recommendationClass = 'success';
+            let recommendationIcon = '✅';
+            let recommendationText = 'GOOD TO CONTACT';
+            let recommendationDetails = 'This is a valid, active mobile number. Safe to call and text.';
+
+            // PRIORITY 1: Legal Compliance (HIGHEST PRIORITY!)
+            if (doNotCall || tcpaBlacklist) {
+                recommendationClass = 'danger';
+                recommendationIcon = '🚨';
+                recommendationText = 'LEGAL RISK - DO NOT CALL';
+                if (doNotCall && tcpaBlacklist) {
+                    recommendationDetails = 'Number is on BOTH Do Not Call Registry AND TCPA blacklist. Calling can result in fines up to $1,500+ per violation!';
+                } else if (doNotCall) {
+                    recommendationDetails = 'Number is on the Do Not Call Registry. Cannot contact without explicit prior consent. Violations can result in $500+ fines per call.';
+                } else {
+                    recommendationDetails = 'Number is on TCPA blacklist. High legal risk. Cannot contact without explicit written consent.';
+                }
+            }
+            // PRIORITY 2: Invalid or Inactive
+            else if (!isValid || !ipqsValid) {
+                recommendationClass = 'danger';
+                recommendationIcon = '❌';
+                recommendationText = 'DO NOT CONTACT';
+                recommendationDetails = 'Invalid number - does not exist or improperly formatted.';
+            } else if (!ipqsActive || lineStatus.toLowerCase() === 'inactive') {
+                recommendationClass = 'danger';
+                recommendationIcon = '❌';
+                recommendationText = 'DO NOT CONTACT';
+                recommendationDetails = 'Number is inactive/disconnected. No longer in service.';
+            }
+            // PRIORITY 3: Known Spammer
+            else if (isSpammer) {
+                recommendationClass = 'danger';
+                recommendationIcon = '❌';
+                recommendationText = 'KNOWN SPAMMER';
+                recommendationDetails = 'This number is associated with spam/scam operations. Do not contact - likely a fake lead.';
+            }
+            // PRIORITY 4: High Fraud Risk
+            else if (fraudScore >= 85 || isRisky) {
+                recommendationClass = 'danger';
+                recommendationIcon = '❌';
+                recommendationText = 'HIGH FRAUD RISK';
+                recommendationDetails = `Fraud score: ${fraudScore}%. This number has been flagged as high risk. Do not contact.`;
+            }
+            // PRIORITY 5: Recently Reassigned
+            else if (isReassigned) {
+                recommendationClass = 'danger';
+                recommendationIcon = '⚠️';
+                recommendationText = 'RECENTLY REASSIGNED';
+                recommendationDetails = `This number was reassigned on ${reassignedDate}. You may reach the wrong person!`;
+            }
+            // PRIORITY 6: Data Breach / Leaked
+            else if (isLeaked) {
+                recommendationClass = 'warning';
+                recommendationIcon = '⚠️';
+                recommendationText = 'DATA BREACH DETECTED';
+                recommendationDetails = 'This number appears in data breach databases. Security risk - proceed with caution and verify identity.';
+            }
+            // PRIORITY 7: Recent Abuse
+            else if (recentAbuse) {
+                recommendationClass = 'warning';
+                recommendationIcon = '⚠️';
+                recommendationText = 'RECENT ABUSE DETECTED';
+                recommendationDetails = 'This number has been reported for spam or abusive behavior recently. Proceed with caution.';
+            }
+            // PRIORITY 8: Moderate Fraud Risk
+            else if (fraudScore >= 50) {
+                recommendationClass = 'warning';
+                recommendationIcon = '⚠️';
+                recommendationText = 'MODERATE FRAUD RISK';
+                recommendationDetails = `Fraud score: ${fraudScore}%. Some risk indicators detected. Contact with caution.`;
+            }
+            // PRIORITY 9: Prepaid Number (Quality Indicator)
+            else if (isPrepaid) {
+                recommendationClass = 'warning';
+                recommendationIcon = '⚠️';
+                recommendationText = 'PREPAID NUMBER';
+                recommendationDetails = 'Prepaid line detected - may indicate lower lead quality or temporary user. Verify before high-value outreach.';
+            }
+            // PRIORITY 10: VoIP
+            else if (lineType.toLowerCase() === 'voip' || isVOIP) {
+                recommendationClass = 'warning';
+                recommendationIcon = '⚠️';
+                recommendationText = 'VOIP NUMBER';
+                recommendationDetails = 'VoIP number (Google Voice, Skype, etc.) - May be temporary or used for spam.';
+            }
+            // PRIORITY 11: Landline
+            else if (lineType.toLowerCase() === 'landline') {
+                recommendationClass = 'warning';
+                recommendationIcon = '⚠️';
+                recommendationText = 'LANDLINE - NO SMS';
+                recommendationDetails = 'Valid for calls but cannot receive text messages.';
+            }
+            // PRIORITY 12: Suspended
+            else if (lineStatus.toLowerCase() === 'suspended') {
+                recommendationClass = 'warning';
+                recommendationIcon = '⚠️';
+                recommendationText = 'SUSPENDED NUMBER';
+                recommendationDetails = 'Number is temporarily suspended - may be reactivated soon.';
+            }
+
+            recommendationBox = `
+                <div class="alert-box ${recommendationClass}">
+                    ${recommendationIcon} <strong>${recommendationText}</strong><br>
+                    <span style="font-weight: normal; font-size: 13px;">${recommendationDetails}</span>
+                </div>
+            `;
+
+            results.innerHTML = `
+                <h3>📊 Phone Number Analysis</h3>
+
+                ${recommendationBox}
+
+                <div style="margin-top: 15px; padding: 15px; background: #f8f9fa; border-radius: 8px; border: 1px solid #dee2e6;">
+                    <strong style="color: #495057;">📋 Lead Quality Indicators</strong>
+                    ${isSpammer ? `
+                    <div class="result-item" style="border: none; padding: 5px 0;">
+                        <span class="result-label">Known Spammer:</span>
+                        <span class="result-value"><span class="badge invalid">Yes ⚠️</span></span>
+                    </div>
+                    ` : ''}
+                    ${isPrepaid ? `
+                    <div class="result-item" style="border: none; padding: 5px 0;">
+                        <span class="result-label">Prepaid Line:</span>
+                        <span class="result-value"><span class="badge warning">Yes</span></span>
+                    </div>
+                    ` : ''}
+                    ${isLeaked ? `
+                    <div class="result-item" style="border: none; padding: 5px 0;">
+                        <span class="result-label">Data Breach:</span>
+                        <span class="result-value"><span class="badge warning">Yes - Found in breach ⚠️</span></span>
+                    </div>
+                    ` : ''}
+                    ${recentAbuse ? `
+                    <div class="result-item" style="border: none; padding: 5px 0;">
+                        <span class="result-label">Recent Abuse:</span>
+                        <span class="result-value"><span class="badge warning">Yes ⚠️</span></span>
+                    </div>
+                    ` : ''}
+                    ${isRisky ? `
+                    <div class="result-item" style="border: none; padding: 5px 0;">
+                        <span class="result-label">Risk Flag:</span>
+                        <span class="result-value"><span class="badge invalid">High Risk ⚠️</span></span>
+                    </div>
+                    ` : ''}
+                    ${!isSpammer && !isPrepaid && !isLeaked && !recentAbuse && !isRisky ? `
+                    <div style="padding: 5px 0; color: #28a745;">✅ No quality issues detected</div>
+                    ` : ''}
+                </div>
+
+                <div style="margin-top: 20px; padding: 15px; background: ${doNotCall || tcpaBlacklist ? '#f8d7da' : '#f8f9fa'}; border-radius: 8px; border: 2px solid ${doNotCall || tcpaBlacklist ? '#f5c6cb' : '#dee2e6'};">
+                    <strong style="color: ${doNotCall || tcpaBlacklist ? '#721c24' : '#495057'};">🚨 Legal Compliance</strong>
+                    <div class="result-item" style="border: none; padding: 5px 0;">
+                        <span class="result-label">Do Not Call Registry:</span>
+                        <span class="result-value"><span class="badge ${doNotCall ? 'invalid' : 'valid'}">${doNotCall ? 'YES - CANNOT CALL! 🚨' : 'No'}</span></span>
+                    </div>
+                    <div class="result-item" style="border: none; padding: 5px 0;">
+                        <span class="result-label">TCPA Blacklist:</span>
+                        <span class="result-value"><span class="badge ${tcpaBlacklist ? 'invalid' : 'valid'}">${tcpaBlacklist ? 'YES - LEGAL RISK! 🚨' : 'No'}</span></span>
+                    </div>
+                </div>
+
+                <div class="result-item">
+                    <span class="result-label">Phone Number:</span>
+                    <span class="result-value"><strong>${data.phone_number}</strong></span>
+                </div>
+
+                <div class="result-item">
+                    <span class="result-label">Valid:</span>
+                    <span class="result-value"><span class="badge ${isValid ? 'valid' : 'invalid'}">${isValid ? 'Yes' : 'No'}</span></span>
+                </div>
+
+                <div class="result-item">
+                    <span class="result-label">Line Status:</span>
+                    <span class="result-value"><span class="badge ${statusBadge}">${lineStatus}</span></span>
+                </div>
+
+                <div class="result-item">
+                    <span class="result-label">Line Type:</span>
+                    <span class="result-value"><span class="badge ${lineTypeBadge}">${lineType}</span></span>
+                </div>
+
+                <div class="result-item">
+                    <span class="result-label">Carrier:</span>
+                    <span class="result-value">${carrier}</span>
+                </div>
+
+                <div class="result-item">
+                    <span class="result-label">Reassigned:</span>
+                    <span class="result-value"><span class="badge ${isReassigned ? 'warning' : 'valid'}">${isReassigned ? 'Yes ⚠️' : 'No'}</span></span>
+                </div>
+
+                ${isReassigned ? `
+                <div class="result-item">
+                    <span class="result-label">Reassigned Date:</span>
+                    <span class="result-value">${reassignedDate}</span>
+                </div>
+                ` : ''}
+
+                <div class="result-item">
+                    <span class="result-label">Fraud Score:</span>
+                    <span class="result-value"><span class="badge ${fraudScore >= 75 ? 'invalid' : fraudScore >= 50 ? 'warning' : 'valid'}">${fraudScore}%</span></span>
+                </div>
+
+                <div style="margin-top: 15px; padding: 15px; background: #f8f9fa; border-radius: 8px; border: 1px solid #dee2e6;">
+                    <strong style="color: #495057;">👤 Identity & Location</strong>
+                    <div class="result-item" style="border: none; padding: 5px 0;">
+                        <span class="result-label">Owner/Company Name:</span>
+                        <span class="result-value">${ownerName}</span>
+                    </div>
+                    <div class="result-item" style="border: none; padding: 5px 0;">
+                        <span class="result-label">Caller Name (Twilio):</span>
+                        <span class="result-value">${callerName}</span>
+                    </div>
+                    <div class="result-item" style="border: none; padding: 5px 0;">
+                        <span class="result-label">Location:</span>
+                        <span class="result-value">${city}, ${region} ${zipCode}</span>
+                    </div>
+                    <div class="result-item" style="border: none; padding: 5px 0;">
+                        <span class="result-label">Timezone:</span>
+                        <span class="result-value">${timezone}</span>
+                    </div>
+                </div>
+
+                <div class="result-item">
+                    <span class="result-label">National Format:</span>
+                    <span class="result-value">${data.national_format || 'N/A'}</span>
+                </div>
+
+                <div class="result-item">
+                    <span class="result-label">Country Code:</span>
+                    <span class="result-value">${data.country_code || 'Unknown'}</span>
+                </div>
+
+                <div class="result-item">
+                    <span class="result-label">MCC / MNC:</span>
+                    <span class="result-value">${mobileCountryCode} / ${mobileNetworkCode}</span>
+                </div>
+
+                <div style="margin-top: 20px; padding: 15px; background: #f8f9fa; border-radius: 8px;">
+                    <strong>Raw API Response:</strong>
+                    <pre style="margin-top: 10px; font-size: 11px; overflow-x: auto;">${JSON.stringify(data, null, 2)}</pre>
+                </div>
+            `;
+        }
+    </script>
+</body>
+</html>

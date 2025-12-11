@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Package xmlns="http://soap.sforce.com/2006/04/metadata">
+    <types>
+        <members>Lead.Phone_Valid__c</members>
+        <members>Lead.Phone_Line_Status__c</members>
+        <members>Lead.Phone_Line_Type__c</members>
+        <members>Lead.Phone_Carrier__c</members>
+        <members>Lead.Phone_Fraud_Score__c</members>
+        <members>Lead.Phone_DNC_Status__c</members>
+        <members>Lead.Phone_TCPA_Blacklist__c</members>
+        <members>Lead.Phone_Legal_Risk__c</members>
+        <members>Lead.Phone_Spammer__c</members>
+        <members>Lead.Phone_Prepaid__c</members>
+        <members>Lead.Phone_Data_Breach__c</members>
+        <members>Lead.Phone_Recent_Abuse__c</members>
+        <members>Lead.Phone_Reassigned__c</members>
+        <members>Lead.Phone_Owner_Name__c</members>
+        <members>Lead.Phone_Location__c</members>
+        <members>Lead.Phone_Timezone__c</members>
+        <members>Lead.Phone_Validation_Date__c</members>
+        <members>Lead.Phone_Recommendation__c</members>
+        <name>CustomField</name>
+    </types>
+    <types>
+        <members>Phone_Validation_Access</members>
+        <name>PermissionSet</name>
+    </types>
+    <version>60.0</version>
+</Package>

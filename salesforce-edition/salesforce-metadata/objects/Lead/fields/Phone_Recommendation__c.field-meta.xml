@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Phone_Recommendation__c</fullName>
+    <description>Recommended action based on phone validation data</description>
+    <externalId>false</externalId>
+    <label>Phone Recommendation</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Do Not Contact - Legal Risk</fullName>
+                <default>false</default>
+                <label>Do Not Contact - Legal Risk</label>
+            </value>
+            <value>
+                <fullName>Do Not Contact - Invalid/Inactive</fullName>
+                <default>false</default>
+                <label>Do Not Contact - Invalid/Inactive</label>
+            </value>
+            <value>
+                <fullName>Do Not Contact - High Fraud</fullName>
+                <default>false</default>
+                <label>Do Not Contact - High Fraud</label>
+            </value>
+            <value>
+                <fullName>Do Not Contact - Spammer</fullName>
+                <default>false</default>
+                <label>Do Not Contact - Spammer</label>
+            </value>
+            <value>
+                <fullName>Proceed with Caution - VoIP/Landline</fullName>
+                <default>false</default>
+                <label>Proceed with Caution - VoIP/Landline</label>
+            </value>
+            <value>
+                <fullName>Proceed with Caution - Prepaid</fullName>
+                <default>false</default>
+                <label>Proceed with Caution - Prepaid</label>
+            </value>
+            <value>
+                <fullName>Proceed with Caution - Moderate Fraud</fullName>
+                <default>false</default>
+                <label>Proceed with Caution - Moderate Fraud</label>
+            </value>
+            <value>
+                <fullName>Proceed with Caution - Data Breach</fullName>
+                <default>false</default>
+                <label>Proceed with Caution - Data Breach</label>
+            </value>
+            <value>
+                <fullName>Good to Contact</fullName>
+                <default>false</default>
+                <label>Good to Contact</label>
+            </value>
+            <value>
+                <fullName>Review Required</fullName>
+                <default>true</default>
+                <label>Review Required</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>
